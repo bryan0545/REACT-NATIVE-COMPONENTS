@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -14,6 +14,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useAnimation} from '../hooks/useAnimation';
 import {StackScreenProps} from '@react-navigation/stack';
+import {ThemeContext} from '../context/ThemeContext/ThemeContext';
 
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
@@ -44,6 +45,9 @@ const items: Slide[] = [
 interface Props extends StackScreenProps<any, any> {}
 
 const SlidesScreen = ({navigation}: Props) => {
+  const {
+    theme: {colors},
+  } = useContext(ThemeContext);
   const [activeItem, setActiveItem] = useState(0);
   const isVisible = useRef(false);
   const {opacity, fadeIn} = useAnimation();
@@ -52,7 +56,7 @@ const SlidesScreen = ({navigation}: Props) => {
       <View
         style={{
           flex: 1,
-          backgroundColor: 'white',
+          backgroundColor: colors.background,
           borderRadius: 15,
           padding: 40,
           width: screenWidth,
@@ -68,8 +72,10 @@ const SlidesScreen = ({navigation}: Props) => {
             resizeMode: 'center',
           }}
         />
-        <Text style={stylesScreen.title}>{item.title}</Text>
-        <Text style={stylesScreen.subTitle}>{item.desc}</Text>
+        <Text style={{...stylesScreen.title}}>{item.title}</Text>
+        <Text style={{...stylesScreen.subTitle, color: colors.text}}>
+          {item.desc}
+        </Text>
       </View>
     );
   };

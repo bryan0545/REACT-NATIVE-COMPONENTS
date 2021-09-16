@@ -1,9 +1,13 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {View, Text, ScrollView, RefreshControl} from 'react-native';
 import HeaderTitle from '../components/HeaderTitle';
+import {ThemeContext} from '../context/ThemeContext/ThemeContext';
 import {styles} from '../theme/appTheme';
 
 const PullRefreshScreen = () => {
+  const {
+    theme: {colors},
+  } = useContext(ThemeContext);
   const [refreshing, setRefreshing] = useState(false);
   const [texto, setTexto] = useState('');
 
@@ -21,7 +25,7 @@ const PullRefreshScreen = () => {
         <RefreshControl
           refreshing={refreshing}
           onRefresh={onRefresh}
-          progressBackgroundColor="#5856D6"
+          progressBackgroundColor="white"
           colors={['purple', 'blue', 'white']}
           style={{backgroundColor: '#5856D6'}}
         />
@@ -31,6 +35,7 @@ const PullRefreshScreen = () => {
         <Text
           style={{
             fontSize: 20,
+            color: colors.text,
           }}>
           {texto}
         </Text>

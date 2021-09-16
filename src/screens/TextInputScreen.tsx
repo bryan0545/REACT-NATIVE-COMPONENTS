@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   View,
   TextInput,
@@ -14,6 +14,7 @@ import HeaderTitle from '../components/HeaderTitle';
 import {styles} from '../theme/appTheme';
 import {useForm} from '../hooks/useForm';
 import CustomSwitch from '../components/CustomSwitch';
+import {ThemeContext} from '../context/ThemeContext/ThemeContext';
 
 const TextInputScreen = () => {
   const {form, onChange, isSuscribed} = useForm({
@@ -22,6 +23,9 @@ const TextInputScreen = () => {
     correo: '',
     isSuscribed: false,
   });
+  const {
+    theme: {colors, dividerColor},
+  } = useContext(ThemeContext);
 
   return (
     <KeyboardAvoidingView
@@ -31,27 +35,44 @@ const TextInputScreen = () => {
           <View style={styles.globalMargin}>
             <HeaderTitle title="Text inputs" />
             <TextInput
-              style={stylesScreen.inputStyle}
+              style={{
+                ...stylesScreen.inputStyle,
+                color: colors.text,
+                borderColor: colors.text,
+              }}
               placeholder="Ingrese su nombre"
               autoCorrect={false}
               autoCapitalize="words"
               onChangeText={value => onChange(value, 'nombre')}
+              placeholderTextColor={dividerColor}
             />
             <TextInput
-              style={stylesScreen.inputStyle}
+              style={{
+                ...stylesScreen.inputStyle,
+                color: colors.text,
+                borderColor: colors.text,
+              }}
               placeholder="Ingrese su telefono"
               autoCapitalize="none"
               onChangeText={value => onChange(value, 'telefono')}
               keyboardType="phone-pad"
+              placeholderTextColor={dividerColor}
             />
             <TextInput
-              style={stylesScreen.inputStyle}
+              style={{
+                ...stylesScreen.inputStyle,
+                color: colors.text,
+                borderColor: colors.text,
+              }}
               placeholder="Ingrese su correo"
               onChangeText={value => onChange(value, 'correo')}
               keyboardType="email-address"
+              placeholderTextColor={dividerColor}
             />
             <View style={stylesScreen.switchRow}>
-              <Text style={stylesScreen.switchText}>isHungry</Text>
+              <Text style={{...stylesScreen.switchText, color: colors.text}}>
+                isHungry
+              </Text>
               <CustomSwitch
                 isOn={isSuscribed}
                 onChange={value => onChange(value, 'isSuscribed')}
